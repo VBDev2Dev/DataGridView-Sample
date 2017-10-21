@@ -1,4 +1,3 @@
-﻿Public Class frmGrid
 ﻿
 
 Imports System.ComponentModel
@@ -29,4 +28,20 @@ Public Class frmGrid
                                                    )
 
     End Function
+
+    Private Sub PersonDataGridView_RowHeaderMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles PersonDataGridView.RowHeaderMouseDoubleClick
+        If Not PersonDataGridView.Rows(e.RowIndex).IsNewRow Then
+            'Note that there are many ways to get the data 
+            Dim p As Person = PersonDataGridView.Rows(e.RowIndex).DataBoundItem
+            MessageBox.Show($"You double clicked on {p}")
+            MessageBox.Show($"The binding source has {DirectCast(
+                            PersonBindingSource.DataSource,
+                            IEnumerable(Of Person)
+                            ).
+                            First(Function(p2) p2 Is p)}")
+
+            MessageBox.Show($"Data contains:{data.Item(data.IndexOf(p))}")
+            MessageBox.Show($"Data now has {data.Count} items.")
+        End If
+    End Sub
 End Class
